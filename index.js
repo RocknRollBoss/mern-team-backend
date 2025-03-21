@@ -17,7 +17,7 @@ import { teamValidation } from "./validations/team.js";
 dotenv.config();
 async function start() {
   try {
-    await mongoose.connect(`${process.env.MONGO}team?`);
+    await mongoose.connect(process.env.MONGO);
     app.listen(process.env.PORT, () =>
       console.log(`server start in port ${process.env.PORT}`)
     );

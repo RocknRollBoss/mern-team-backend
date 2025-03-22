@@ -39,7 +39,7 @@ app.use(express.json());
 
 app.use(
   cors({
-    origin: "https://mern-team-app.vercel.app",
+    origin: "https://mern-team-45hlub63i-rocknrolls-projects.vercel.app",
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],

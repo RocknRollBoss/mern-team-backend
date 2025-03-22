@@ -15,12 +15,13 @@ import {
 } from "./controllers/team-controller.js";
 import { teamValidation } from "./validations/team.js";
 dotenv.config();
+const port = process.env.PORT || 3000;
 async function start() {
   try {
     await mongoose.connect(process.env.MONGO);
-    app.listen(process.env.PORT, () =>
-      console.log(`server start in port ${process.env.PORT}`)
-    );
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
   } catch (error) {
     console.log(error);
   }
@@ -30,8 +31,21 @@ start();
 
 const app = express();
 
+app.get("/", (req, res) => {
+  res.send("Hello, Vercel!");
+});
+
 app.use(express.json());
-app.use(cors());
+
+app.use(
+  cors({
+    origin: "https://mern-team-app.vercel.app",
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  })
+);
+
 app.post("/auth/register", registerValidation, validateErrors, register);
 app.post("/auth/login", loginValidation, validateErrors, login);
 app.get("/auth/current", checkAuth, getCurrent);
@@ -40,3 +54,5 @@ app.get("/team", getAll);
 app.get("/team/:id", getOne);
 app.delete("/team/:id", checkAuth, remove);
 app.patch("/team/:id", checkAuth, teamValidation, validateErrors, update);
+
+export default app;

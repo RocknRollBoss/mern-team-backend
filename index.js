@@ -37,14 +37,7 @@ app.get("/", (req, res) => {
 
 app.use(express.json());
 
-app.use(
-  cors({
-    origin: "https://mern-team-frontend.vercel.app",
-    credentials: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  })
-);
+app.use(cors());
 
 app.post("/auth/register", registerValidation, validateErrors, register);
 app.post("/auth/login", loginValidation, validateErrors, login);
@@ -56,3 +49,10 @@ app.delete("/team/:id", checkAuth, remove);
 app.patch("/team/:id", checkAuth, teamValidation, validateErrors, update);
 
 export default app;
+
+/* {
+  origin: "https://mern-team-frontend.vercel.app",
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+} */
